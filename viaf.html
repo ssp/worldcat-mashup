@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<base href="http://vlib.sub.uni-goettingen.de/vlib-test/">
+<link rel="stylesheet" type="text/css" href="fileadmin/AAC/aac.css" media="all">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<style type="text/css">
+	#head { display: none; }
+	body { background: transparent; }
+	.city { font-style: italic; }
+	.lang { color: #000; }
+	#autocomplete {
+		position: absolute;
+		top: 20px;
+		left: 150px;
+		width: 550px;
+		background: #fff;
+		background: rgba(255, 255, 255, 0.9);
+		z-index: 100;
+		border: 1px solid #999;
+		padding: 0px;
+		box-shadow: #eee 1px 2px 2px;
+	}
+	#autocomplete ul {
+		padding: 0px 5px;
+	}
+	#autocomplete li {
+		padding-left: 0px;
+		margin-left: 1.1em;
+		text-indent: -1em;
+		list-style-type: none;
+	}
+	.pz2-fieldContainer {
+		position: relative;
+	}
+	#readmore {
+		display: none;
+	}
+</style>
+				
+<script type="text/javascript">
+	function searchForPerson () {
+		var field = this;
+		var viafID = this.data.viafid;
+		var URL = 'http://vlib.sub.uni-goettingen.de/viaf/' + viafID + '/marc21.xml';
+		
+		var successCallback = function (data, textStatus, jqXHR) {
+			var names = {};
+			jQuery('datafield[tag="400"], mx\\:datafield[tag="400"], datafield[tag="700"], mx\\:datafield[tag="700"]', data).each( function () {
+				var subfields = jQuery('subfield[code="a"], subfield[code="c"], mx\\:subfield[code="a"], mx:\\subfield[code="c"]' , this);
+				var cleanName = '';
+				jQuery(subfields).each( function () {
+					cleanName += this.textContent + ' ';
+				});
+				var match = cleanName.match('^\w*(.*?)[, .]*$');
+				if (match) {
+					cleanName = match[1];
+				}
+				names[cleanName] = true;
+			});
+			
+			var search = [];
+			for (var name in names) {
+				search.push('person="' + name + '"');
+			}
+			var searchString = search.join(' or ');
+			
+			document.getElementById('pz2-field-all').value = searchString;
+			document.getElementById('pz2-field-person').value = '';
+			jQuery('#autocomplete').remove();
+			triggerSearchFunction();
+		};
+		
+		var ajaxSettings = { 'success': successCallback, 'url': URL };
+		jQuery.ajax(ajaxSettings);
+		return false;
+	}
+
+
+	function typeName (field) {
+		var search = field.value;
+		if (search.length > 1) {
+			var URL = 'http://viaf.org/viaf/AutoSuggest?format=json&query=' + search + '&callback=?';
+			jQuery.getJSON(URL, function (data) {
+				if (data.query == field.value) {
+					var results = data.result;
+					var ol = document.createElement('ol');
+					ol.id = 'autocomplete'
+					jQuery('ol#autocomplete').remove();
+					
+					if (results !== null) {
+						jQuery(field).after(ol);
+						for (var i in results) {
+							var li = document.createElement('li');
+							var name = results[i].term;
+							var link = document.createElement('a');
+							li.appendChild(link);
+							link.href = '#';
+							link.onclick = searchForPerson;
+							link.data = results[i];
+							link.appendChild(document.createTextNode(name));
+							ol.appendChild(li);
+						}
+					}
+				}
+			})
+		}
+		return true;
+	}
+	
+	
+	
+</script>
+
+
+<title>The same, but different</title><link rel="search" type="application/opensearchdescription+xml" title="Lib AAC" href="?type=9004"><link rel="SHORTCUT ICON" href="fileadmin/AAC/favicon.ico" type="image/ico">
+
+
+<link rel="stylesheet" type="text/css" href="typo3conf/ext/pazpar2/Resources/Public/pz2.css" media="all" />
+<script type="text/javascript" src="typo3conf/ext/pazpar2/Resources/Public/pz2.js"></script>
+<script type="text/javascript">
+my_serviceID = 'GVK';
+</script>
+<script type="text/javascript" src="../demo/wm/pz2-client.js"></script>
+<script type="text/javascript">
+useGoogleBooks = true;
+useZDB = true;
+ZDBUseClientIP = true;
+useHistogramForYearFacets = true;
+clientIPAddress = "134.76.22.145";
+preferSUBOpac = false;
+provideCOinSExport = true;
+showExportLinksForEachLocation = false;
+showKVKLink = true;
+exportFormats = ["ris","bibtex"];
+displaySort = [{"fieldName":"date","direction":"descending"},{"fieldName":"author","direction":"ascending"},{"fieldName":"title","direction":"ascending"}];
+</script>
+<script type="text/javascript" src="typo3conf/ext/pazpar2/Resources/Public/flot/jquery.flot.js"></script>
+<script type="text/javascript" src="typo3conf/ext/pazpar2/Resources/Public/flot/jquery.flot.selection.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">jQuery(document).ready(pz2ClientDomReady);
+google.load('books', '0');
+</script>
+</head>
+<body>
+
+<div id="page" class="container_16">
+	<a href="#content" class="invisible">Jump to page content.</a>
+
+	<div id="head" class="grid_16">
+	
+	<!--  CONTENT ELEMENT, uid:5/html [begin] -->
+		<a id="c5"></a>
+		<!--  Raw HTML content: [begin] -->
+			<a href="">
+<h1 lang="en">Demo for WorldCat Mashathon Frankfurt 2011</h1>
+</a>
+		<!--  Raw HTML content: [end] -->
+			
+	<!--  CONTENT ELEMENT, uid:5/html [end] -->
+		
+</div>
+
+	<div class="clear"></div>
+
+	<div id="content">
+		<div class="grid_12">
+			<h2>The same, but different</h2>
+		</div>
+		<div class="clear"></div>
+
+		<div class="container_16">
+			
+	<!--  CONTENT ELEMENT, uid:73/text [begin] -->
+		<div id="c73" class="csc-default" >
+		<!--  Text: [begin] -->
+			<p class="bodytext">This page uses a few VIAF/WorldCat Services to enrich search and display capabilities. <a href="#readmore" id="readmorelink" onclick="jQuery('#readmore').slideDown('fast'); jQuery('#readmorelink').fadeOut('fast'); return false;">Read more…</a>
+			</p>
+			<ul id="readmore">
+				<li>When clicking a short result, the long result is displayed and the WorldCat <a href="http://oclc.org/developer/documentation/xisbn/using-api">xISBN</a> service is used to learn about similar works. Those are added to the display as ‘Other Editions’ and the WorldCat Search service is used to look up the nearest library owning that book based on the user’s IP address. [The xOCLCNumber Service doesn’t provide data as rich as the xISBN service does, limiting this use case to ISBNs. ‘Other Editions’ probably aren’t all that useful. Those held in the local library may be more relevant but cannot be easily queried with the current API. Finding out holdings for all xISBN results would be much more efficient if all information could be retrieved in a single query.]
+				</li>
+				<li>When using extended search and typing into the ‘Person, Author’ field, <a href="http://oclc.org/developer/services/viaf">VIAF</a> is used to offer suggestions. If a suggestion is selected, its full VIAF record is retrieved and a search query using all alternate name forms is created and started. [The data provided by VIAF search suggestions could be more complete, e.g. containing the canonical name and job of the person in question.]
+				</li>
+			</ul>
+		<!--  Text: [end] -->
+			</div>
+	<!--  CONTENT ELEMENT, uid:73/text [end] -->
+		
+	<!--  CONTENT ELEMENT, uid:122/list [begin] -->
+		<a id="c122"></a>
+		<!--  Plugin inserted: [begin] -->
+			<div id="pazpar2" class="pz2-noJS">
+
+	<div class="pz2-accessNote"></div>
+
+	
+	
+		<form method="get" class="pz2-searchForm pz2-basic" action="#">
+<div style="display: none">
+<input type="hidden" name="tx_pazpar2_pazpar2[__referrer][extensionName]" value="Pazpar2" />
+<input type="hidden" name="tx_pazpar2_pazpar2[__referrer][controllerName]" value="Pazpar2" />
+<input type="hidden" name="tx_pazpar2_pazpar2[__referrer][actionName]" value="index" />
+<input type="hidden" name="tx_pazpar2_pazpar2[__hmac]" value="a:9:{s:11:&quot;queryString&quot;;i:1;s:19:&quot;querySwitchFulltext&quot;;i:1;s:16:&quot;queryStringTitle&quot;;i:1;s:22:&quot;querySwitchJournalOnly&quot;;i:1;s:17:&quot;queryStringPerson&quot;;i:1;s:15:&quot;queryStringDate&quot;;i:1;s:7:&quot;perpage&quot;;i:1;s:5:&quot;useJS&quot;;i:1;s:10:&quot;controller&quot;;i:1;}567e4b8fdc62e06574714fb8825788c4d00db389" />
+</div>
+
+	<div class="pz2-mainForm">
+
+		<div class="pz2-fieldContainer pz2-field-all">
+			<label class="pz2-textFieldLabel" for="pz2-field-all">All Fields</label>
+			<input placeholder="" class="pz2-searchField" id="pz2-field-all" type="text" name="tx_pazpar2_pazpar2[queryString]" value="" />
+			
+				<span class="pz2-formControls">
+					<input class="pz2-submitButton" type="submit" name="" value="Search" />
+					
+						<a class="pz2-extendedLink" href="http://aac.sub.uni-goettingen.de/?tx_pazpar2_pazpar2%5Bextended%5D=1&amp;tx_pazpar2_pazpar2%5Bcontroller%5D=Pazpar2&amp;cHash=3a735dbe8ed7e90c231db6f99cd7eded">extended Search</a>
+					
+				</span>
+			
+			
+				<span class="pz2-checkbox pz2-fulltext">
+					<input type="hidden" name="tx_pazpar2_pazpar2[querySwitchFulltext]" value="" /><input id="pz2-checkbox-fulltext" type="checkbox" name="tx_pazpar2_pazpar2[querySwitchFulltext]" value="1" />
+					<label for="pz2-checkbox-fulltext">include TOCs</label>
+				</span>
+			
+		</div>
+
+		
+			<div class="pz2-extraFields">
+				<div class="pz2-fieldContainer pz2-field-title">
+					<label class="pz2-textFieldLabel" for="pz2-field-title">Title</label>
+					<input class="pz2-searchField" id="pz2-field-title" type="text" name="tx_pazpar2_pazpar2[queryStringTitle]" value="" />
+					
+						<span class="pz2-checkbox pz2-journal-only">
+							<input type="hidden" name="tx_pazpar2_pazpar2[querySwitchJournalOnly]" value="" /><input id="pz2-checkbox-journal" type="checkbox" name="tx_pazpar2_pazpar2[querySwitchJournalOnly]" value="1" />
+							<label for="pz2-checkbox-journal">journal titles only</label>
+						</span>
+					
+				</div>
+				
+
+				<div class="pz2-fieldContainer pz2-field-person">
+					<label class="pz2-textFieldLabel" for="pz2-field-person">Person, Author</label>
+					<input placeholder="e.g. Lincoln oder Wilde, Oscar" class="pz2-searchField" id="pz2-field-person" type="text" name="tx_pazpar2_pazpar2[queryStringPerson]" onkeyup="typeName(this);" value="" />
+				</div>
+
+				
+					<div class="pz2-fieldContainer pz2-field-date">
+						<label class="pz2-textFieldLabel" for="pz2-field-date">Year</label>
+						<input placeholder="e.g. 2004, 2004-, -2004 oder 2004-2008" class="pz2-searchField" id="pz2-field-date" type="text" name="tx_pazpar2_pazpar2[queryStringDate]" value="" />
+						
+					</div>
+				
+			</div>
+
+			
+		
+
+	</div>
+
+	<div class="pz2-ranking">
+		
+
+		<select class="pz2-perPage" name="tx_pazpar2_pazpar2[perpage]"><option value="10">10</option>
+<option value="20">20</option>
+<option value="50">50</option>
+<option value="100" selected="selected">100</option>
+</select>
+	</div>
+
+	<input type="hidden" name="tx_pazpar2_pazpar2[useJS]" value="no" />
+
+</form>
+	
+
+	<div class="pz2-clear"></div>
+	
+	
+
+<div id="pz2-recordView">
+	<div class="pz2-pager">
+		<div class="pz2-progressIndicator"></div>
+		<div class="pz2-pageNumbers"></div>
+		<span class="pz2-recordCount" onclick="toggleStatus();">
+			
+		</span>
+
+		<div id="pz2-targetView" style="display: none">
+				Noch keine Informationen verfügbar.
+		</div> <!-- #pz2-targetView -->
+	</div>
+
+	<div id="pz2-navi"></div>
+	<div id="pz2-termLists"></div>
+	<div id="pz2-results">
+		
+				
+			
+	</div>
+
+</div> <!-- #pz2-recordView -->
+
+</div> <!-- #pazpar2 -->
+		<!--  Plugin inserted: [end] -->
+			
+	<!--  CONTENT ELEMENT, uid:122/list [end] -->
+		
+		</div>
+		<div class="clear"></div>
+	</div>
+
+</div>
+
+<div id="foot">
+	<h2 class="invisible">
+		Informationen zur Lib AAC
+	</h2>
+	
+	<!--  CONTENT ELEMENT, uid:25/text [begin] -->
+		<div id="c25" class="csc-default" >
+		<!--  Text: [begin] -->
+			<p class="bodytext">Tweaking by <a href="mailto:porst@sub.uni-goettingen.de">Sven-S. Porst, SUB Göttingen</a></p>
+		<!--  Text: [end] -->
+			</div>
+	<!--  CONTENT ELEMENT, uid:25/text [end] -->
+		
+</div>
+
+
+
+
+
+<!-- Piwik -->
+<script type="text/javascript" src="http://piwik.gwdg.de/piwik.js"></script>
+<script type="text/javascript">
+	/* <![CDATA[ */
+		try {
+			var piwikTracker=Piwik.getTracker("http://piwik.gwdg.de/piwik.php",111);
+			piwikTracker.enableLinkTracking();
+		piwikTracker.trackPageView();
+		} catch(err) {}
+
+	/* ]]> */
+</script>
+<noscript><p><img src="http://piwik.gwdg.de/piwik.php?idsite=111" style="border:0" alt=""/></p></noscript>
+<!-- /Piwik -->
+</body>
+</html>
