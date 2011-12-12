@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<base href="http://vlib.sub.uni-goettingen.de/vlib-test/">
-<link rel="stylesheet" type="text/css" href="fileadmin/AAC/aac.css" media="all">
+<base href="http://vlib.sub.uni-goettingen.de/">
+<link rel="stylesheet" type="text/css" href="vlib-test/fileadmin/AAC/aac.css" media="all">
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <style type="text/css">
 	#head { display: none; }
@@ -36,6 +36,9 @@
 	}
 	#readmore {
 		display: none;
+	}
+	#readmore ul, #readmore li {
+		margin: 0px;
 	}
 </style>
 				
@@ -117,12 +120,12 @@
 <title>The same, but different</title><link rel="search" type="application/opensearchdescription+xml" title="Lib AAC" href="?type=9004"><link rel="SHORTCUT ICON" href="fileadmin/AAC/favicon.ico" type="image/ico">
 
 
-<link rel="stylesheet" type="text/css" href="typo3conf/ext/pazpar2/Resources/Public/pz2.css" media="all" />
-<script type="text/javascript" src="typo3conf/ext/pazpar2/Resources/Public/pz2.js"></script>
+<link rel="stylesheet" type="text/css" href="/demo/wm/typo3-pazpar2/Resources/Public/pz2.css" media="all" />
+<script type="text/javascript" src="/demo/wm/typo3-pazpar2/Resources/Public/pz2.js"></script>
 <script type="text/javascript">
 my_serviceID = 'GVK';
 </script>
-<script type="text/javascript" src="../demo/wm/pz2-client.js"></script>
+<script type="text/javascript" src="/demo/wm/typo3-pazpar2/Resources/Public/pz2-client.js"></script>
 <script type="text/javascript">
 useGoogleBooks = true;
 useZDB = true;
@@ -136,8 +139,8 @@ showKVKLink = true;
 exportFormats = ["ris","bibtex"];
 displaySort = [{"fieldName":"date","direction":"descending"},{"fieldName":"author","direction":"ascending"},{"fieldName":"title","direction":"ascending"}];
 </script>
-<script type="text/javascript" src="typo3conf/ext/pazpar2/Resources/Public/flot/jquery.flot.js"></script>
-<script type="text/javascript" src="typo3conf/ext/pazpar2/Resources/Public/flot/jquery.flot.selection.js"></script>
+<script type="text/javascript" src="/demo/wm/typo3-pazpar2/Resources/Public/flot/jquery.flot.js"></script>
+<script type="text/javascript" src="/demo/wm/typo3-pazpar2/Resources/Public/flot/jquery.flot.selection.js"></script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">jQuery(document).ready(pz2ClientDomReady);
 google.load('books', '0');
@@ -177,12 +180,17 @@ google.load('books', '0');
 		<!--  Text: [begin] -->
 			<p class="bodytext">This page uses a few VIAF/WorldCat Services to enrich search and display capabilities. <a href="#readmore" id="readmorelink" onclick="jQuery('#readmore').slideDown('fast'); jQuery('#readmorelink').fadeOut('fast'); return false;">Read more…</a>
 			</p>
-			<ul id="readmore">
+			<div id="readmore">
+			<p style="position: absolute; right: -240px;">
+				<a href="https://github.com/ssp/worldcat-mashup">github Repository</a>
+			</p>
+			<ul>
 				<li>When clicking a short result, the long result is displayed and the WorldCat <a href="http://oclc.org/developer/documentation/xisbn/using-api">xISBN</a> service is used to learn about similar works. Those are added to the display as ‘Other Editions’ and the WorldCat Search service is used to look up the nearest library owning that book based on the user’s IP address. [The xOCLCNumber Service doesn’t provide data as rich as the xISBN service does, limiting this use case to ISBNs. ‘Other Editions’ probably aren’t all that useful. Those held in the local library may be more relevant but cannot be easily queried with the current API. Finding out holdings for all xISBN results would be much more efficient if all information could be retrieved in a single query.]
 				</li>
 				<li>When using extended search and typing into the ‘Person, Author’ field, <a href="http://oclc.org/developer/services/viaf">VIAF</a> is used to offer suggestions. If a suggestion is selected, its full VIAF record is retrieved and a search query using all alternate name forms is created and started. [The data provided by VIAF search suggestions could be more complete, e.g. containing the canonical name and job of the person in question.]
 				</li>
 			</ul>
+			</div>
 		<!--  Text: [end] -->
 			</div>
 	<!--  CONTENT ELEMENT, uid:73/text [end] -->
