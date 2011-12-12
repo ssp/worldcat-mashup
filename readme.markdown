@@ -29,7 +29,7 @@ The project consists of two parts:
 
 After clicking the result it will expand to the full display and shortly after »Other Editions« will be added. Subsequently information about the »Next Copy« appears after each item of the list if the user’s location can be determined based on the IP address.
 
-![Alternate Editions and the nearest copy as provided by xISBN and WorldCat](screenshots/xISBN-Krabat.png)
+![Alternate Editions and the nearest copy as provided by xISBN and WorldCat](worldcat-mashup/raw/master/screenshots/xISBN-Krabat.png)
 
 
 ## Example VIAF
@@ -40,11 +40,11 @@ After clicking the result it will expand to the full display and shortly after �
 
 During and after step 3. completion suggestions for the name appear beneath the »Person, Author« search field:
 
-![Completion suggestions for the Author name](screenshots/VIAF-Gesse.png)
+![Completion suggestions for the Author name](worldcat-mashup/raw/master/screenshots/VIAF-Gesse.png)
 
 After clicking the first suggestion, the complete VIAF record is downloaded and an OR query for all alternate forms of the name is created and started.
 
-![ORed query for all alternate name forms, along with results](screenshots/VIAF-Gesse-2.png)
+![ORed query for all alternate name forms, along with results](worldcat-mashup/raw/master/screenshots/VIAF-Gesse-2.png)
 
 As a result we see that even though we started typing the alternate spelling 'Gesse', we end up finding results in the spelling 'Hesse' as well. As the alternate forms include »Hesse, H.«, we also get results from other authors with the same initial.
 
